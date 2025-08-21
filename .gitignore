@@ -54,3 +54,4 @@ TestResult.xml
 nunit-*.xml
 /EShopMS/.vs/EShopMS/v17
 /.vs
+/Src/.vs/EShopMS/v17
