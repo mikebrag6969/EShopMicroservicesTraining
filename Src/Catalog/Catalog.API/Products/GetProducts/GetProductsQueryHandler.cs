@@ -6,18 +6,18 @@ using Marten.Linq.QueryHandlers;
 namespace Catalog.API.Products.GetProducts
 {
 
-    public record GetProductQuery (): IQuery<GetProductResult>;
+    public record GetProductsQuery(): IQuery<GetProductsResult>;
 
-    public record GetProductResult(IEnumerable<Product> products);
+    public record GetProductsResult(IEnumerable<Product> Products);
 
 
-    public class GetProductsQueryHandler (IDocumentSession session) : IQueryHandler<GetProductQuery, GetProductResult>
+    public class GetProductsQueryHandler (IDocumentSession session) : IQueryHandler<GetProductsQuery, GetProductsResult>
 
     {
-        public async Task<GetProductResult> Handle(GetProductQuery query, CancellationToken cancellationToken)
+        public async Task<GetProductsResult> Handle(GetProductsQuery query, CancellationToken cancellationToken)
         {
             var products = await session.Query<Product>().ToListAsync(cancellationToken);
-            return new GetProductResult(products);  
+            return new GetProductsResult(products);  
 
 
         }
