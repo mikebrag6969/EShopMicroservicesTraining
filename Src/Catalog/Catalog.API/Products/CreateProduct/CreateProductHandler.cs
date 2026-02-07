@@ -19,9 +19,20 @@ namespace Catalog.API.Products.CreateProduct
     public record CreateProductResult (Guid Id);
 
 
-    public   class CreateProductHandler(IDocumentSession session) : ICommandHandler<CreateProductCommand, CreateProductResult>
+    public class CreateProductCommandValidator : AbstractValidator<CreateProductCommand>
     {
+        public CreateProductCommandValidator()
+        {
+            RuleFor(x => x.Name).NotEmpty().WithMessage("Name is required!");
+            RuleFor(x => x.Category).NotEmpty().WithMessage("Category is required!");
+            RuleFor(x => x.Price).GreaterThan(6).WithMessage("price should be > 6 required!");
+        }
 
+    }
+
+
+    public class CreateProductCommandHandler(IDocumentSession session) : ICommandHandler<CreateProductCommand, CreateProductResult>
+    {
 
         public async Task<CreateProductResult> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
